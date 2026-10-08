@@ -1,0 +1,7 @@
+numpy==2.2.5
+Pillow>=10.0
+pytorch-lightning==2.6.5
+open_clip_torch==3.3.0
+ftfy==6.3.1
+regex==2024.11.6
+huggingface-hub==0.30.2

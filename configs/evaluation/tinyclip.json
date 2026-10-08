@@ -1,0 +1,35 @@
+{
+    "model": {
+        "type": "tinyclip",
+        "architecture": "TinyCLIP-auto-ViT-22M-32-Text-10M",
+        "pretrained_path": "resources/models/foundation/tinyclip/TinyCLIP-auto-ViT-22M-32-Text-10M-LAION400M.pt"
+    },
+    "benchmarks": {
+        "map": [
+            {
+                "name": "pedestrian",
+                "image_root": "resources/datasets/evaluation/SecMM-TBIR/images/pedestrian",
+                "query_file": "resources/datasets/evaluation/SecMM-TBIR/query/pedestrian_queries.txt",
+                "label_file": "resources/datasets/evaluation/SecMM-TBIR/label/gt_pedestrian.json"
+            },
+            {
+                "name": "vehicle",
+                "image_root": "resources/datasets/evaluation/SecMM-TBIR/images/vehicle",
+                "query_file": "resources/datasets/evaluation/SecMM-TBIR/query/vehicle_queries.txt",
+                "label_file": "resources/datasets/evaluation/SecMM-TBIR/label/gt_vehicle.json"
+            }
+        ],
+        "recall": [
+            {
+                "name": "mscoco",
+                "image_root": "resources/datasets/evaluation/general-domain/mscoco-test/mscoco-test",
+                "label_file": "resources/datasets/evaluation/general-domain/mscoco-test/mscoco-test/test.txt"
+            },
+            {
+                "name": "flickr30k",
+                "image_root": "resources/datasets/evaluation/general-domain/flickr-test/flickr-test",
+                "label_file": "resources/datasets/evaluation/general-domain/flickr-test/flickr-test/test.txt"
+            }
+        ]
+    }
+}

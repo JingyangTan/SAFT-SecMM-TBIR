@@ -1,0 +1,78 @@
+{
+    "name": "tinyclip_10M",
+    "exp_name": "SAFT",
+    "arch": {
+        "type": "tinyclip",
+        "args": {
+            "model_arch": "TinyCLIP-auto-ViT-22M-32-Text-10M",
+            "pretrained_path": "resources/models/foundation/tinyclip/TinyCLIP-auto-ViT-22M-32-Text-10M-LAION400M.pt"
+        },
+        "trainable_layers": [
+            "_image_encoder.visual.transformer",
+            "_image_encoder.visual.ln_post",
+            "image_proj.weight"
+        ]
+    },
+    "dataset": {
+        "type": "ClipDistillData",
+        "args": {
+            "train_augmentation": {
+                "random_resized_crop": {
+                    "scale": [0.8, 1.0],
+                    "ratio": [0.1, 1.33]
+                },
+                "horizontal_flip_probability": 0.5,
+                "color_jitter": {
+                    "brightness": 0.3,
+                    "contrast": 0.3,
+                    "saturation": 0.3,
+                    "hue": 0
+                },
+                "gaussian_blur": {
+                    "kernel_size": 5,
+                    "sigma": [0.1, 2.0],
+                    "probability": 0.1
+                }
+            },
+            "train_image_root": [
+                "resources/datasets/training/sample/train/images"
+            ],
+            "train_annotation_files": [
+                "resources/datasets/training/sample/train/annotations.txt"
+            ],
+            "val_image_root": [
+                "resources/datasets/training/sample/val/images"
+            ],
+            "val_annotation_files": [
+                "resources/datasets/training/sample/val/annotations.txt"
+            ]
+        }
+    },
+    "training": {
+        "batch_size": 128,
+        "accumulate_grad_batches": 1,
+        "max_epochs": 15,
+        "val_check_interval": 20,
+        "checkpoint_interval_steps": 20
+    },
+    "optimizer": {
+        "type": "AdamW",
+        "args": {
+            "lr": 5e-06,
+            "weight_decay": 0.05,
+            "amsgrad": true
+        }
+    },
+    "scheduler": {
+        "warmup_ratio": 0.133,
+        "min_lr": 5e-07
+    },
+    "loss": {
+        "distillation_temperature": 4,
+        "teacher_soft_label_temperature": 0.001,
+        "enable_cusa": false,
+        "enable_hnm": false,
+        "hnm_threshold": 0.0,
+        "hnm_top_k": 96
+    }
+}
